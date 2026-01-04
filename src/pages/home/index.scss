@@ -1,0 +1,337 @@
+.home {
+  min-height: 100vh;
+  background: $bg-color;
+  padding-bottom: 120rpx;
+}
+
+// 未连接状态
+.not-connected {
+  padding: 24rpx;
+}
+
+.header {
+  padding: 32rpx 0;
+  text-align: center;
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.welcome-card {
+  background: $card-bg;
+  border-radius: $border-radius-lg;
+  padding: 60rpx 40rpx;
+  text-align: center;
+  box-shadow: $box-shadow;
+  margin-bottom: 24rpx;
+}
+
+.moon-icon {
+  font-size: 100rpx;
+  margin-bottom: 32rpx;
+  display: block;
+}
+
+.welcome-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 16rpx;
+}
+
+.welcome-desc {
+  display: block;
+  font-size: 28rpx;
+  color: $text-secondary;
+  margin-bottom: 32rpx;
+}
+
+.connect-mode {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 32rpx;
+}
+
+.mode-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 16rpx;
+  background: #f8f9fc;
+  border-radius: $border-radius;
+  border: 2rpx solid transparent;
+  transition: all 0.3s;
+  font-size: 26rpx;
+  color: $text-secondary;
+  &.active {
+    border-color: $primary-color;
+    background: rgba(91, 127, 255, 0.08);
+    color: $primary-color;
+  }
+}
+
+.mode-icon {
+  font-size: 36rpx;
+  margin-bottom: 8rpx;
+}
+
+.connect-btn {
+  width: 100%;
+  height: 96rpx;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 500;
+  border-radius: 48rpx;
+  border: none;
+  line-height: 96rpx;
+}
+
+.features-card {
+  background: $card-bg;
+  border-radius: $border-radius-lg;
+  padding: 32rpx;
+  box-shadow: $box-shadow;
+}
+
+.features-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 28rpx;
+  display: block;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  font-size: 28rpx;
+  color: $text-secondary;
+}
+
+.feature-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: $primary-color;
+  flex-shrink: 0;
+}
+
+// 已连接状态
+.connected {
+  padding: 24rpx;
+}
+
+.device-card {
+  background: $card-bg;
+  border-radius: $border-radius-lg;
+  padding: 28rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+  box-shadow: $box-shadow;
+}
+
+.device-left {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.device-icon-wrap {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: rgba(82, 196, 26, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.device-icon {
+  font-size: 40rpx;
+}
+
+.device-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.device-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.device-status {
+  font-size: 24rpx;
+  color: $text-secondary;
+  margin-top: 4rpx;
+}
+
+.connect-tag {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 12rpx 24rpx;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  &.bluetooth {
+    background: rgba(91, 127, 255, 0.15);
+    color: $primary-color;
+  }
+  &.wifi {
+    background: rgba(82, 196, 26, 0.15);
+    color: #52c41a;
+  }
+}
+
+.tag-icon {
+  font-size: 24rpx;
+}
+
+// 控制卡片
+.control-card {
+  background: $card-bg;
+  border-radius: $border-radius-lg;
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+  box-shadow: $box-shadow;
+}
+
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.control-left {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.control-icon-wrap {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &.airbag {
+    background: rgba(91, 127, 255, 0.12);
+  }
+  &.temp {
+    background: rgba(255, 152, 0, 0.12);
+  }
+}
+
+.control-icon {
+  font-size: 36rpx;
+}
+
+.control-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.control-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.control-desc {
+  font-size: 24rpx;
+  color: $text-secondary;
+  margin-top: 4rpx;
+}
+
+.control-value {
+  text-align: right;
+  .value-num {
+    font-size: 48rpx;
+    font-weight: 700;
+    color: $primary-color;
+  }
+  .value-unit {
+    font-size: 24rpx;
+    color: $text-secondary;
+    display: block;
+  }
+  &.temp .value-num {
+    color: #52c41a;
+  }
+}
+
+.control-body {
+  padding-top: 24rpx;
+}
+
+.auto-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.auto-label {
+  font-size: 28rpx;
+  color: $text-primary;
+}
+
+.slider-section {
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: $text-placeholder;
+}
+
+.slider-mid {
+  color: $text-secondary;
+}
+
+// 底部提示
+.tip-card {
+  background: rgba(91, 127, 255, 0.08);
+  border-radius: $border-radius;
+  padding: 24rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.tip-icon {
+  font-size: 32rpx;
+}
+
+.tip-text {
+  font-size: 26rpx;
+  color: $text-secondary;
+  flex: 1;
+}
