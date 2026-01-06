@@ -6,7 +6,7 @@
         <text class="header-title">{{ t('brandName') }}</text>
       </view>
       <view class="welcome-card">
-        <view class="moon-icon">🌙</view>
+        <image class="moon-icon" src="/static/logo.png" mode="aspectFit" />
         <text class="welcome-title">{{ t('welcomeTitle') }}</text>
         <text class="welcome-desc">{{ t('welcomeDesc') }}</text>
         <view class="connect-mode">
@@ -49,7 +49,7 @@
       <view class="device-card">
         <view class="device-left">
           <view class="device-icon-wrap">
-            <text class="device-icon">🌙</text>
+            <image class="device-icon" src="/static/logo.png" mode="aspectFit" />
           </view>
           <view class="device-info">
             <text class="device-name">{{ t('smartPillow') }}</text>

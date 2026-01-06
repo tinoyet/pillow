@@ -30,8 +30,9 @@
 }
 
 .moon-icon {
-  font-size: 100rpx;
-  margin-bottom: 32rpx;
+  width: 280rpx;
+  height: 80rpx;
+  margin: 16rpx auto 24rpx;
   display: block;
 }
 
@@ -162,7 +163,8 @@
 }
 
 .device-icon {
-  font-size: 40rpx;
+  width: 50rpx;
+  height: 50rpx;
 }
 
 .device-info {
