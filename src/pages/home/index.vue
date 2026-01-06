@@ -11,11 +11,11 @@
         <text class="welcome-desc">{{ t('welcomeDesc') }}</text>
         <view class="connect-mode">
           <view class="mode-item" :class="{ active: connectMode === 'bluetooth' }" @tap="connectMode = 'bluetooth'">
-            <text class="mode-icon">📶</text>
+            <image class="mode-icon-img" src="/static/images/bluetooth.png" mode="aspectFit" />
             <text>{{ t('connectBluetooth') }}</text>
           </view>
           <view class="mode-item" :class="{ active: connectMode === 'wifi' }" @tap="connectMode = 'wifi'">
-            <text class="mode-icon">📡</text>
+            <image class="mode-icon-img" src="/static/images/wifi.png" mode="aspectFit" />
             <text>{{ t('connectWifi') }}</text>
           </view>
         </view>
@@ -57,7 +57,9 @@
           </view>
         </view>
         <view class="connect-tag" :class="connectMode">
-          <text class="tag-icon">{{ connectMode === 'bluetooth' ? '📶' : '📡' }}</text>
+          <image class="tag-icon-img"
+            :src="connectMode === 'bluetooth' ? '/static/images/bluetooth.png' : '/static/images/wifi.png'"
+            mode="aspectFit" />
           <text>{{ connectMode === 'bluetooth' ? t('bluetooth') : 'WiFi' }}</text>
         </view>
       </view>
@@ -141,6 +143,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { onShow } from '@dcloudio/uni-app'
 import { useI18n } from '@/utils/i18n'
 
 const { t } = useI18n()
@@ -165,6 +168,8 @@ const startConnect = async () => {
   await new Promise(resolve => setTimeout(resolve, 2000))
   connecting.value = false
   isConnected.value = true
+  uni.setStorageSync('deviceConnected', true)
+  uni.setStorageSync('connectMode', connectMode.value)
   uni.showToast({ title: t('connectSuccess'), icon: 'success' })
   startSimulation()
 }
@@ -191,6 +196,9 @@ const onPressureChange = (e: any) => { targetPressure.value = e.detail.value }
 const onTempChange = (e: any) => { targetTemp.value = e.detail.value }
 
 const startSimulation = () => {
+  if (pressureTimer) clearInterval(pressureTimer)
+  if (tempTimer) clearInterval(tempTimer)
+
   pressureTimer = setInterval(() => {
     if (currentPressure.value < targetPressure.value) {
       currentPressure.value = Math.min(currentPressure.value + 0.5, targetPressure.value)
@@ -208,6 +216,20 @@ const startSimulation = () => {
     }
   }, 800) as unknown as number
 }
+
+onShow(() => {
+  const connected = uni.getStorageSync('deviceConnected')
+  if (isConnected.value !== !!connected) {
+    isConnected.value = !!connected
+    if (isConnected.value) {
+      connectMode.value = uni.getStorageSync('connectMode') || 'bluetooth'
+      startSimulation()
+    } else {
+      if (pressureTimer) clearInterval(pressureTimer)
+      if (tempTimer) clearInterval(tempTimer)
+    }
+  }
+})
 
 onMounted(() => {
   const connected = uni.getStorageSync('deviceConnected')

@@ -95,6 +95,7 @@ export default {
   bodyMove: 'Movement',
   times: '',
   points: 'pts',
+  minute: 'min',
   fallAsleep: 'Asleep',
   wakeUp: 'Wake up',
   dailyScore: 'Daily Score',

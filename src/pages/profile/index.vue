@@ -79,6 +79,7 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
+import { onShow } from '@dcloudio/uni-app'
 import { useI18n, toggleLang } from '@/utils/i18n'
 
 const { t, currentLang } = useI18n()
@@ -90,10 +91,15 @@ const userInfo = reactive({
 })
 
 const deviceInfo = reactive({
-  connected: true,
+  connected: false,
   model: 'SXQ-P100',
   firmware: 'v2.1.3',
   serialNo: 'SXQ2024001234'
+})
+
+onShow(() => {
+  const connected = uni.getStorageSync('deviceConnected')
+  deviceInfo.connected = !!connected
 })
 
 const switchLang = () => {

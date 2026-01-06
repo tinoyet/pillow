@@ -24,7 +24,7 @@
           <score-ring :score="dayData.score" canvas-id="dayScoreRing" />
         </view>
         <text class="score-tip">{{ dayData.sleepTime }} {{ t('fallAsleep') }}, {{ dayData.wakeTime }} {{ t('wakeUp')
-          }}</text>
+        }}</text>
       </view>
 
       <view class="chart-card">
@@ -109,8 +109,20 @@
             <text class="count-unit">{{ t('times') }}</text>
           </view>
         </view>
-        <view class="chart-wrap-sm">
-          <u-charts canvas-id="snoreChart" type="column" :chart-data="snoreChartData" :opts="barOpts" />
+        <view class="event-timeline-container">
+          <view v-if="selectedEvent.type === 'snore'" class="event-tooltip" :style="{ left: selectedEvent.left + '%' }">
+            <text class="tooltip-text">{{ selectedEvent.text }}</text>
+            <text class="tooltip-time">{{ selectedEvent.time }}</text>
+          </view>
+          <view class="event-timeline-bar">
+            <view v-for="(evt, idx) in snoreEvents" :key="idx" class="event-marker snore"
+              :style="{ left: getTimePosition(evt.time) + '%' }">
+              <view class="event-click-area" @tap.stop="onEventClick('snore', idx, evt)"></view>
+            </view>
+          </view>
+          <view class="timeline-axis">
+            <text v-for="time in timeLabels" :key="time">{{ time }}</text>
+          </view>
         </view>
       </view>
 
@@ -122,8 +134,20 @@
             <text class="count-unit">{{ t('times') }}</text>
           </view>
         </view>
-        <view class="chart-wrap-sm">
-          <u-charts canvas-id="moveChart" type="column" :chart-data="moveChartData" :opts="barOpts" />
+        <view class="event-timeline-container">
+          <view v-if="selectedEvent.type === 'move'" class="event-tooltip" :style="{ left: selectedEvent.left + '%' }">
+            <text class="tooltip-text">{{ selectedEvent.text }}</text>
+            <text class="tooltip-time">{{ selectedEvent.time }}</text>
+          </view>
+          <view class="event-timeline-bar">
+            <view v-for="(evt, idx) in moveEvents" :key="idx" class="event-marker move"
+              :style="{ left: getTimePosition(evt.time) + '%' }">
+              <view class="event-click-area" @tap.stop="onEventClick('move', idx, evt)"></view>
+            </view>
+          </view>
+          <view class="timeline-axis">
+            <text v-for="time in timeLabels" :key="time">{{ time }}</text>
+          </view>
         </view>
       </view>
     </view>
@@ -209,7 +233,7 @@
           <view class="avg-info">
             <text class="avg-label">{{ t('avg') }}</text>
             <text class="avg-value orange">{{ monthData.avgSnoreCount }} <text class="unit">{{ t('times')
-                }}</text></text>
+            }}</text></text>
           </view>
         </view>
         <view class="chart-wrap">
@@ -300,10 +324,6 @@ const breathRateOpts = {
   yAxis: { min: 8, max: 20 }
 }
 
-const barOpts = {
-  yAxis: { min: 0, max: 5, splitNumber: 5 }
-}
-
 const monthLineOpts = {
   xAxis: {
     labelCount: 6
@@ -329,15 +349,51 @@ const breathRateChartData = reactive({
   series: [{ name: '呼吸率', data: [16, 15, 12, 14, 16], color: '#4dabf7' }]
 })
 
-const snoreChartData = reactive({
-  categories: eventTimeLabels,
-  series: [{ name: '打鼾', data: [0, 1, 2, 1, 0, 1, 0, 0], color: '#ff6b6b' }]
+const snoreEvents = [
+  { time: '23:15', duration: 2 },
+  { time: '01:30', duration: 5 },
+  { time: '03:45', duration: 5 },
+  { time: '04:20', duration: 3 },
+  { time: '05:10', duration: 1 }
+]
+
+const moveEvents = [
+  { time: '22:45', duration: 1 },
+  { time: '00:15', duration: 1 },
+  { time: '02:30', duration: 2 },
+  { time: '04:00', duration: 1 },
+  { time: '05:45', duration: 1 }
+]
+
+const selectedEvent = reactive({
+  type: '' as 'snore' | 'move' | '',
+  index: -1,
+  left: 0,
+  text: '',
+  time: ''
 })
 
-const moveChartData = reactive({
-  categories: eventTimeLabels,
-  series: [{ name: '翻身', data: [1, 0, 1, 2, 0, 1, 0, 0], color: '#52c41a' }]
-})
+const getTimePosition = (timeStr: string) => {
+  const [h, m] = timeStr.split(':').map(Number)
+  let minutes = h * 60 + m
+  if (h < 22) minutes += 24 * 60
+  const start = 22 * 60
+  const total = 8 * 60
+  return ((minutes - start) / total) * 100
+}
+
+const onEventClick = (type: 'snore' | 'move', index: number, event: any) => {
+  if (selectedEvent.type === type && selectedEvent.index === index) {
+    selectedEvent.type = ''
+    selectedEvent.index = -1
+    return
+  }
+  selectedEvent.type = type
+  selectedEvent.index = index
+  selectedEvent.left = getTimePosition(event.time)
+  selectedEvent.text = `${type === 'snore' ? t('snore') : t('bodyMove')} ${event.duration}${t('minute')}`
+  selectedEvent.time = event.time
+}
 
 // 月数据图表
 const monthScoreChartData = reactive({

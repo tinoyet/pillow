@@ -95,6 +95,7 @@ export default {
   bodyMove: '体动',
   times: '次',
   points: '分',
+  minute: '分钟',
   fallAsleep: '入睡',
   wakeUp: '起床',
   dailyScore: '每日评分',
